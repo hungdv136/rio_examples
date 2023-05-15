@@ -28,8 +28,22 @@ func TestCallAPI(t *testing.T) {
 		// Submit stub to mock server
 		Send(ctx, server))
 
-	input := map[string]interface{}{"name": animalName}
-	resData, err := CallAPI(ctx, server.GetURL(ctx), input)
-	require.NoError(t, err)
-	require.Equal(t, returnedBody, resData)
+	t.Run("success", func(t *testing.T) {
+		t.Parallel()
+
+		input := map[string]interface{}{"name": animalName}
+		resData, err := CallAPI(ctx, server.GetURL(ctx), input)
+		require.NoError(t, err)
+		require.Equal(t, returnedBody, resData)
+	})
+
+	t.Run("not_found", func(t *testing.T) {
+		t.Parallel()
+
+		// Request body does not match
+		input := map[string]interface{}{"name": uuid.NewString()}
+		resData, err := CallAPI(ctx, server.GetURL(ctx), input)
+		require.Error(t, err)
+		require.Empty(t, resData)
+	})
 }

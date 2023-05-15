@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"net/http"
 )
 
@@ -21,6 +22,11 @@ func CallAPI(ctx context.Context, rootURL string, input map[string]interface{}) 
 	req.Header.Set("Content-Type", "application/json")
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		err := errors.New("not found")
 		return nil, err
 	}
 
