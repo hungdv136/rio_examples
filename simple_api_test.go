@@ -15,21 +15,21 @@ func TestCallAPI(t *testing.T) {
 	ctx := context.Background()
 	server := rio.NewLocalServerWithReporter(t)
 
-	animalName := uuid.NewString()
-	returnedBody := map[string]interface{}{"id": uuid.NewString()}
-
-	require.NoError(t, rio.NewStub().
-		// Verify method and path
-		For("POST", rio.EndWith("/animal")).
-		// Verify if the request body is composed correctly
-		WithRequestBody(rio.BodyJSONPath("$.name", rio.EqualTo(animalName))).
-		// Response with 200 and json
-		WillReturn(rio.NewResponse().WithBody(rio.MustToJSON(returnedBody))).
-		// Submit stub to mock server
-		Send(ctx, server))
-
 	t.Run("success", func(t *testing.T) {
 		t.Parallel()
+
+		animalName := uuid.NewString()
+		returnedBody := map[string]interface{}{"id": uuid.NewString()}
+
+		require.NoError(t, rio.NewStub().
+			// Verify method and path
+			For("POST", rio.EndWith("/animal")).
+			// Verify if the request body is composed correctly
+			WithRequestBody(rio.BodyJSONPath("$.name", rio.EqualTo(animalName))).
+			// Response with 200 (default) and JSON
+			WillReturn(rio.JSONResponse(returnedBody)).
+			// Submit stub to mock server
+			Send(ctx, server))
 
 		input := map[string]interface{}{"name": animalName}
 		resData, err := CallAPI(ctx, server.GetURL(ctx), input)
@@ -37,11 +37,22 @@ func TestCallAPI(t *testing.T) {
 		require.Equal(t, returnedBody, resData)
 	})
 
-	t.Run("not_found", func(t *testing.T) {
+	t.Run("bad_request", func(t *testing.T) {
 		t.Parallel()
 
-		// Request body does not match
-		input := map[string]interface{}{"name": uuid.NewString()}
+		animalName := uuid.NewString()
+
+		require.NoError(t, rio.NewStub().
+			// Verify method and path
+			For("POST", rio.EndWith("/animal")).
+			// Verify if the request body is composed correctly
+			WithRequestBody(rio.BodyJSONPath("$.name", rio.EqualTo(animalName))).
+			// Response with status 400
+			WillReturn(rio.NewResponse().WithStatusCode(400)).
+			// Submit stub to mock server
+			Send(ctx, server))
+
+		input := map[string]interface{}{"name": animalName}
 		resData, err := CallAPI(ctx, server.GetURL(ctx), input)
 		require.Error(t, err)
 		require.Empty(t, resData)
