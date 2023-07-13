@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/google/uuid v1.3.0
-	github.com/hungdv136/rio v1.2.1
+	github.com/hungdv136/rio v1.2.4
 	github.com/stretchr/testify v1.8.2
 )
 

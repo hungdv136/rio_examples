@@ -47,6 +47,8 @@ github.com/huandu/xstrings v1.4.0 h1:D17IlohoQq4UcpqD7fDk80P7l+lwAmlFaBHgOipl2FU
 github.com/huandu/xstrings v1.4.0/go.mod h1:y5/lhBue+AyNmUVz9RLU9xbLR0o4KIIExikq4ovT0aE=
 github.com/hungdv136/rio v1.2.1 h1:G080OWsKVfI3jsMVSXfmvIAzYDWSfs4cVVO01VlQy6s=
 github.com/hungdv136/rio v1.2.1/go.mod h1:4KC5mdy7KoA7BLRhLVsBCZiYwRd9SP4w99ELQb1BJhA=
+github.com/hungdv136/rio v1.2.4 h1:XIM2SbQqtv3o0F3igOaElH5cd4Qg2deqy3Mkom15Og0=
+github.com/hungdv136/rio v1.2.4/go.mod h1:4KC5mdy7KoA7BLRhLVsBCZiYwRd9SP4w99ELQb1BJhA=
 github.com/imdario/mergo v0.3.11/go.mod h1:jmQim1M+e3UYxmgPu/WyfjB3N3VflVyUjjjwH0dnCYA=
 github.com/imdario/mergo v0.3.14 h1:fOqeC1+nCuuk6PKQdg9YmosXX7Y7mHX6R/0ZldI9iHo=
 github.com/imdario/mergo v0.3.14/go.mod h1:WBLT9ZmE3lPoWsEzCh9LPo3TiwVN+ZKEjmz+hD27ysY=
